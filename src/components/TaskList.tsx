@@ -8,18 +8,37 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import TasklistItem from "./TasklistItem";
+import { useQuery, useRealm } from "@realm/react";
+import { task_model } from "../models/task_model";
+import { BSON } from "realm";
 
 const TaskList = () => {
-  const [tasks, setTasks] = useState([
-    { id: "1", description: "first task" },
-    { id: "2", description: "first task" },
-    { id: "3", description: "third task" },
-  ]);
+  //hook realm method
+  const realm = useRealm();
+
+  //listen data from local db
+  const tasks = useQuery(task_model);
+  // const [tasks, setTasks] = useState([
+  //   { id: "1", description: "first task" },
+  //   { id: "2", description: "first task" },
+  //   { id: "3", description: "third task" },
+  // ]);
+
+  console.log(tasks, "l");
 
   const [newTask, setNewTask] = useState("");
 
   const onCreateTask = () => {
-    setTasks([...tasks, { description: newTask }]);
+    // setTasks([...tasks, { description: newTask }]);
+
+    //create data in localdb
+    realm.write(() => {
+      realm.create(task_model, {
+        _id: new BSON.ObjectId(),
+        description: newTask,
+        user_id: "12sjs",
+      });
+    });
 
     setNewTask("");
   };

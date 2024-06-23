@@ -3,6 +3,7 @@ import React from "react";
 import { StatusBar } from "expo-status-bar";
 import TaskBoard from "../components/TaskBoard";
 import { Stack } from "expo-router";
+import "react-native-get-random-values";
 
 const HomeScreen = () => {
   return (
