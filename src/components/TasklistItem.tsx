@@ -1,13 +1,16 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import { AntDesign } from "@expo/vector-icons";
+import { Link } from "expo-router";
 
 const TasklistItem = ({ task }) => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.textStyle}>{task.description}</Text>
-      <AntDesign name="close" size={16} color={"grey"} />
-    </View>
+    <Link href={`${task.id}`} asChild>
+      <TouchableOpacity style={styles.container}>
+        <Text style={styles.textStyle}>{task.description}</Text>
+        <AntDesign name="close" size={16} color={"grey"} />
+      </TouchableOpacity>
+    </Link>
   );
 };
 
